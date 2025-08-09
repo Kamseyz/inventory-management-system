@@ -1,0 +1,383 @@
+{% extends "base/layout.html" %}
+{% load static %}
+{% block body %}
+  <!-- nav bar -->
+ <div class="mynav">
+     <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid px-4">
+    <!-- LEFT: Brand -->
+    <a class="navbar-brand" href="#">MAZI</a>
+
+    <!-- Hamburger Menu Button (Mobile View) -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Nav Links -->
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+      
+      <!-- CENTER: Main Links (slightly centered using mx-auto) -->
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Trusted Company</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">FAQ</a>
+        </li>
+      </ul>
+
+      <!-- RIGHT: Log in -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a id="user-login" class="nav-link logs" href="{% url 'login' %}">Log in</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+ </div>
+
+
+
+   <!-- hero -->
+<div data-aos="fade-down" class="container py-5">
+  <div class="row align-items-center">
+    <!-- Text Left -->
+    <div class="col-lg-6 text-center text-lg-start">
+      <h2 class="fs-1 fw-bolder">Revolutionize the Way You Manage Inventory with Mazi Inventory</h2>
+      <p class="mt-5 fs-3 fw-normal">
+        Streamline your stock, boost efficiency, and unlock growth
+        with our powerful inventory management software.
+      </p>
+    </div>
+    <!-- Image Right -->
+    <div class="col-lg-6 d-flex justify-content-center" style="height: 400px;">
+      <img src="{% static 'images/hero1.jpg' %}" alt="Hero" class="hero_img">
+    </div>
+  </div>
+</div>
+
+
+
+<!-- FEATURES SECTION -->
+<div class="p-5 bg-secondary-subtle">
+  <div class="row row-cols-1 row-cols-md-3 g-3">
+    
+    <!-- CARD 1 -->
+    <div class="col">
+      <div class="card border-0 bg-white shadow-sm h-100" style="max-width: 350px; margin: auto;">
+        <div class="card-icon ms-4 mt-4">
+          <i class="fa-solid fa-clock fa-xl"></i>
+        </div>
+        <div class="card-body px-4 pb-4 pt-2">
+          <h5 class="card-title mt-4 fs-3 fw-bolder">Real Time Inventory Tracking</h5>
+          <p class="card-text">Monitor your inventory levels with real-time updates. Our software ensures that every item, across multiple locations or sales channels, is tracked down to the last unit.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="col">
+      <div class="card border-0 bg-white shadow-sm h-100" style="max-width: 350px; margin: auto;">
+        <div class="card-icon ms-4 mt-4">
+          <i class="fa-solid fa-warehouse fa-xl"></i>
+        </div>
+        <div class="card-body px-4 pb-4 pt-2">
+          <h5 class="card-title mt-4 fs-3 fw-bolder">Warehouse Management</h5>
+          <p class="card-text">Manage every aspect of your warehouse with advanced tools for tracking inventory location, managing stock levels, and overseeing order fulfillment.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="col">
+      <div class="card border-0 bg-white shadow-sm h-100" style="max-width: 350px; margin: auto;">
+        <div class="card-icon ms-4 mt-4">
+          <i class="fa-solid fa-chart-simple fa-xl"></i>
+        </div>
+        <div class="card-body px-4 pb-4 pt-2">
+          <h5 class="card-title mt-4 fs-3 fw-bolder">Reporting & Analysis</h5>
+          <p class="card-text">Get a full breakdown of your inventory activity through custom reports. Track key metrics such as stock turnover, shrinkage rates, and sales trends.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="col">
+      <div class="card border-0 bg-white shadow-sm h-100" style="max-width: 350px; margin: auto;">
+        <div class="card-icon ms-4 mt-4">
+          <i class="fa-solid fa-mobile-screen fa-xl"></i>
+        </div>
+        <div class="card-body px-4 pb-4 pt-2">
+          <h5 class="card-title mt-4 fs-3 fw-bolder">Mobile Access</h5>
+          <p class="card-text">Stay in control of your stock whether you're in the office, on the road, or on the warehouse floor – in real time from any device.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 5 -->
+    <div class="col">
+      <div class="card border-0 bg-white shadow-sm h-100" style="max-width: 350px; margin: auto;">
+        <div class="card-icon ms-4 mt-4">
+          <i class="fa-solid fa-robot fa-xl"></i>
+        </div>
+        <div class="card-body px-4 pb-4 pt-2">
+          <h5 class="card-title mt-4 fs-3 fw-bolder">Automated Stock Replenishment</h5>
+          <p class="card-text">Set minimum stock levels and let our system auto-generate purchase orders when inventory drops below thresholds.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 6 -->
+    <div class="col">
+      <div class="card border-0 bg-white shadow-sm h-100" style="max-width: 350px; margin: auto;">
+        <div class="card-icon ms-4 mt-4">
+          <i class="fa-solid fa-globe fa-xl"></i>
+        </div>
+        <div class="card-body px-4 pb-4 pt-2">
+          <h5 class="card-title mt-4 fs-3 fw-bolder">Multi-Channel Management</h5>
+          <p class="card-text">Whether you're selling online, in-store, or through a distribution network, manage everything from one centralized dashboard.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+            <!-- Solutions Section -->
+<div data-aos="slide-left" class="p-5">
+  <!-- Section Heading -->
+  <h5 class="fs-3 fw-normal text-center text-decoration-underline">Solutions</h5>
+  <h2 class="fs-1 fw-bold mt-1 text-center">Tailored Inventory Solutions for Every Industry</h2>
+  <p class="mt-3 text-center fs-5 fw-light">
+    Whether you're in retail, manufacturing, or e-commerce, our software is built to solve your unique challenges.
+  </p>
+
+  <!-- Solution 1: Retail -->
+  <div class="row align-items-center mt-5 mb-5">
+    <div class="col-lg-6 d-flex justify-content-center" style="height: 400px;">
+      <img src="{% static 'images/retail.jpg' %}" alt="Retail" class="hero_img img-fluid">
+    </div>
+    <div class="col-lg-6 text-center text-lg-start">
+      <h5 class="fs-4 fw-light mt-2">RETAIL</h5>
+      <h5 class="fs-4 fw-normal mt-2">Optimize your in-store and online stock levels.</h5>
+      <p class="mt-5 fs-3 fw-normal">
+        Manage all of your retail channels with ease. From brick-and-mortar locations to e-commerce platforms, our software helps you track sales,
+        restock popular items, and maintain accurate stock levels across all stores and warehouses.
+      </p>
+    </div>
+  </div>
+
+  <!-- Solution 2: E-Commerce -->
+  <div class="row align-items-center mb-5">
+    <div class="col-lg-6 text-center text-lg-start mt-5 mt-lg-0">
+      <h5 class="fs-4 fw-light mt-2">E-COMMERCE</h5>
+      <h5 class="fs-4 fw-normal mt-2">Seamless integration with your online store.</h5>
+      <p class="mt-5 fs-3 fw-normal">
+        Whether you sell on Shopify, WooCommerce, Amazon, or your own website, keep your inventory synced in real-time. Our platform ensures
+        that stock levels across your sales channels are always accurate, reducing the risk of overselling and improving customer satisfaction.
+      </p>
+    </div>
+    <div class="col-lg-6 d-flex justify-content-center" style="height: 400px;">
+      <img src="{% static 'images/warehouse.jpg' %}" alt="E-Commerce" class="hero_img img-fluid">
+    </div>
+  </div>
+
+  <!-- Solution 3: Manufacturing -->
+  <div class="row align-items-center mb-5">
+    <div class="col-lg-6 d-flex justify-content-center" style="height: 400px;">
+      <img src="{% static 'images/together.jpg' %}" alt="Manufacturing" class="hero_img img-fluid">
+    </div>
+    <div class="col-lg-6 text-center text-lg-start">
+      <h5 class="fs-4 fw-light mt-2">MANUFACTURING</h5>
+      <h5 class="fs-4 fw-normal mt-2">Track raw materials and finished goods effortlessly.</h5>
+      <p class="mt-5 fs-3 fw-normal">
+        Manage every step of the production process with precision. Track the movement of raw materials and monitor the status of work-in-progress
+        (WIP) items to ensure that your supply chain operates smoothly and efficiently.
+      </p>
+    </div>
+  </div>
+
+  <!-- Solution 4: Distribution -->
+  <div class="row align-items-center mb-5">
+    <div class="col-lg-6 text-center text-lg-start mt-5 mt-lg-0">
+      <h5 class="fs-4 fw-light mt-2">DISTRIBUTION</h5>
+      <h5 class="fs-4 fw-normal mt-2">Simplify complex supply chains.</h5>
+      <p class="mt-5 fs-3 fw-normal">
+        Manage inventory across multiple warehouses and distribution centers. Our software gives you the tools to ensure products are delivered to the 
+        right locations, at the right time, with full visibility from end to end.
+      </p>
+    </div>
+    <div class="col-lg-6 d-flex justify-content-center" style="height: 400px;">
+      <img src="{% static 'images/dist.jpg' %}" alt="Distribution" class="hero_img img-fluid">
+    </div>
+  </div>
+</div>
+
+                                    <!-- testimonies section -->
+<div data-aos="zoom-in" class="container py-5">
+  <h2 class="text-center mb-4">What Our Customers Say</h2>
+  
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <!-- Card 1 -->
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <div class="row g-0">
+          <div class="col-4">
+            <img src="{% static 'images/ash.jpg' %}" class="img-fluid rounded-start" alt="Ashley">
+          </div>
+          <div class="col-8">
+            <div class="card-body">
+              <h5 class="card-title mb-1">Ashley</h5>
+              <small class="text-muted">Store Manager, Urban Threads</small>
+              <p class="card-text mt-3">
+                “Mazi Inventory gave us complete control over our stock. What used to take hours now takes minutes — a game changer.”
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <div class="row g-0">
+          <div class="col-4">
+            <img src="{% static 'images/chris.jpg' %}" class="img-fluid rounded-start" alt="Ashley">
+          </div>
+          <div class="col-8">
+            <div class="card-body">
+              <h5 class="card-title mb-1">Chris</h5>
+              <small class="text-muted">Founder, KultureKart</small>
+              <p class="card-text mt-3">
+                “I run four online stores and used to struggle with syncing inventory. Since switching to Mazi, I haven't oversold a single product. The real-time tracking is a lifesaver.”
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Card 3 -->
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <div class="row g-0">
+          <div class="col-4">
+            <img src="{% static 'images/ryan.jpg' %}" class="img-fluid rounded-start" alt="Ashley">
+          </div>
+          <div class="col-8">
+            <div class="card-body">
+              <h5 class="card-title mb-1">Ryan</h5>
+              <small class="text-muted">Operations Lead, Apex Manufacturing</small>
+              <p class="card-text mt-3">
+                “From raw materials to finished goods, Mazi Inventory tracks everything. It helped us eliminate bottlenecks in production and finally get ahead of our demand forecasts”
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Card 4 -->
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <div class="row g-0">
+          <div class="col-4">
+            <img src="{% static 'images/tony.jpg' %}" class="img-fluid rounded-start" alt="Ashley">
+          </div>
+          <div class="col-8">
+            <div class="card-body">
+              <h5 class="card-title mb-1">Tony</h5>
+              <small class="text-muted">Logistics Manager, FastFlow Distribution</small>
+              <p class="card-text mt-3">
+                “Mazi made our warehouse logistics seamless. With one dashboard, we know exactly where every item is and that's cut our shipping errors by more than 60%.”
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+                                       
+        <!-- footer section-->
+         <footer class="bg-light text-dark pt-5 pb-3">
+  <div class="container">
+    <div class="row justify-content-between">
+      <!-- Logo & Description -->
+      <div class="col-md-4 mb-4">
+        <img src="{% static 'images/mazi.svg' %}" alt="Logo" class="mb-3" style="max-width: 150px;">
+        <p class="text-muted">
+          Empowering the next generation of learners with innovative educational solutions.
+        </p>
+        <button class="btn btn-success">Learn More</button>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-md-2 mb-4">
+        <h5 class="fw-bold">Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-muted text-decoration-none">About Us</a></li>
+          <li><a href="#" class="text-muted text-decoration-none">Features</a></li>
+          <li><a href="#" class="text-muted text-decoration-none">Programs</a></li>
+          <li><a href="#" class="text-muted text-decoration-none">Blog</a></li>
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div class="col-md-2 mb-4">
+        <h5 class="fw-bold">Resources</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-muted text-decoration-none">Help Center</a></li>
+          <li><a href="#" class="text-muted text-decoration-none">Terms of Use</a></li>
+          <li><a href="#" class="text-muted text-decoration-none">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+      <!-- Social Links -->
+      <div class="col-md-3 mb-4">
+        <h5 class="fw-bold">Connect with us</h5>
+        <div class="d-flex gap-3 mt-2">
+          <a href="#" class="text-muted fs-5"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="text-muted fs-5"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-muted fs-5"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-muted fs-5"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="text-center border-top pt-3 mt-4 text-muted">
+      &copy; 2025 All rights reserved.
+    </div>
+  </div>
+</footer>
+
+
+
+        <!-- bootstrap js -->
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-..." crossorigin="anonymous"></script>
+         <!-- aos script -->
+          <!-- Before closing </body> -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 900, 
+    once: true    
+  });
+</script>
+
+{% endblock body %}

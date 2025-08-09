@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMS Worker Dashboard</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+        }
+        .sidebar .nav-link {
+            color: rgba(255,255,255,0.8);
+            padding: 12px 20px;
+            margin: 2px 0;
+            border-radius: 8px;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .task-card {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .inventory-card {
+            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        .orders-card {
+            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        .main-content {
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        .quick-action {
+            transition: all 0.3s ease;
+        }
+        .quick-action:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar p-0">
+                <div class="p-3">
+                    <h4 class="text-white mb-4">
+                        <i class="bi bi-person-workspace"></i> IMS Worker
+                    </h4>
+                    <nav class="nav flex-column">
+                        <a class="nav-link active" href="#dashboard">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                        <a class="nav-link" href="#inventory">
+                            <i class="bi bi-box-seam"></i> View Inventory
+                        </a>
+                        <a class="nav-link" href="#add-product">
+                            <i class="bi bi-plus-circle"></i> Add Product
+                        </a>
+                        <a class="nav-link" href="#orders">
+                            <i class="bi bi-cart3"></i> Process Orders
+                        </a>
+                        <a class="nav-link" href="#stock-check">
+                            <i class="bi bi-clipboard-check"></i> Stock Check
+                        </a>
+                        <a class="nav-link" href="#my-tasks">
+                            <i class="bi bi-list-task"></i> My Tasks
+                        </a>
+                        <hr class="text-white">
+                        <a class="nav-link" href="{% url 'logout' %}">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10 main-content">
+                <!-- Header -->
+                <div class="d-flex justify-content-between align-items-center p-4 bg-white shadow-sm">
+                    <h2>Worker Dashboard</h2>
+                    <div class="d-flex align-items-center">
+                        <span class="me-3">Hello, {{ user.first_name|default:user.email }}</span>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-person-circle"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#profile">Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="p-4">
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <div class="card task-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h4>12</h4>
+                                            <p class="mb-0">Tasks Today</p>
+                                        </div>
+                                        <i class="bi bi-list-task fs-1"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card inventory-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h4>456</h4>
+                                            <p class="mb-0">Items Processed</p>
+                                        </div>
+                                        <i class="bi bi-box-seam fs-1"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card orders-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h4>23</h4>
+                                            <p class="mb-0">Orders Pending</p>
+                                        </div>
+                                        <i class="bi bi-cart3 fs-1"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Quick Actions</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="card quick-action bg-primary text-white text-center p-3">
+                                                <i class="bi bi-plus-circle fs-1"></i>
+                                                <h6 class="mt-2">Add New Product</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="card quick-action bg-success text-white text-center p-3">
+                                                <i class="bi bi-clipboard-check fs-1"></i>
+                                                <h6 class="mt-2">Stock Check</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="card quick-action bg-warning text-white text-center p-3">
+                                                <i class="bi bi-cart-check fs-1"></i>
+                                                <h6 class="mt-2">Process Order</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="card quick-action bg-info text-white text-center p-3">
+                                                <i class="bi bi-search fs-1"></i>
+                                                <h6 class="mt-2">Search Inventory</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- My Tasks and Pending Orders -->
+                    <div class="row">
+                        <!-- My Tasks -->
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>My Tasks for Today</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="list-group list-group-flush">
+                                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>Stock Count - Electronics</strong><br>
+                                                <small class="text-muted">Due: 2:00 PM</small>
+                                            </div>
+                                            <span class="badge bg-warning rounded-pill">Pending</span>
+                                        </div>
+                                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>Process Order #1234</strong><br>
+                                                <small class="text-muted">Priority: High</small>
+                                            </div>
+                                            <span class="badge bg-danger rounded-pill">Urgent</span>
+                                        </div>
+                                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>Update Product Info</strong><br>
+                                                <small class="text-muted">iPhone 14 Details</small>
+                                            </div>
+                                            <span class="badge bg-success rounded-pill">In Progress</span>
+                                        </div>
+                                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>Receive Shipment</strong><br>
+                                                <small class="text-muted">Samsung Products</small>
+                                            </div>
+                                            <span class="badge bg-info rounded-pill">Scheduled</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Recent Activity -->
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Recent Activity</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="list-group list-group-flush">
+                                        <div class="list-group-item">
+                                            <div class="d-flex align-items-center">
+                                                <i class="bi bi-plus-circle text-success me-2"></i>
+                                                <div>
+                                                    <strong>Added 50 iPhone Cases</strong><br>
+                                                    <small class="text-muted">2 hours ago</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="list-group-item">
+                                            <div class="d-flex align-items-center">
+                                                <i class="bi bi-check-circle text-primary me-2"></i>
+                                                <div>
+                                                    <strong>Completed Order #1230</strong><br>
+                                                    <small class="text-muted">3 hours ago</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="list-group-item">
+                                            <div class="d-flex align-items-center">
+                                                <i class="bi bi-arrow-up-circle text-warning me-2"></i>
+                                                <div>
+                                                    <strong>Updated Stock - MacBook Pro</strong><br>
+                                                    <small class="text-muted">5 hours ago</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="list-group-item">
+                                            <div class="d-flex align-items-center">
+                                                <i class="bi bi-exclamation-triangle text-danger me-2"></i>
+                                                <div>
+                                                    <strong>Low Stock Alert - AirPods</strong><br>
+                                                    <small class="text-muted">6 hours ago</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Inventory Overview -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Current Inventory Status</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>SKU</th>
+                                                    <th>Current Stock</th>
+                                                    <th>Status</th>
+                                                    <th>Last Updated</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>iPhone 14 Pro Max</td>
+                                                    <td>IP14PM-256</td>
+                                                    <td>25</td>
+                                                    <td><span class="badge bg-success">In Stock</span></td>
+                                                    <td>2 hours ago</td>
+                                                    <td><button class="btn btn-sm btn-outline-primary">Edit</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Samsung Galaxy S23</td>
+                                                    <td>SGS23-128</td>
+                                                    <td>8</td>
+                                                    <td><span class="badge bg-warning">Low Stock</span></td>
+                                                    <td>5 hours ago</td>
+                                                    <td><button class="btn btn-sm btn-outline-primary">Edit</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>AirPods Pro</td>
+                                                    <td>APP-GEN2</td>
+                                                    <td>3</td>
+                                                    <td><span class="badge bg-danger">Critical</span></td>
+                                                    <td>1 day ago</td>
+                                                    <td><button class="btn btn-sm btn-outline-primary">Edit</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>MacBook Air M2</td>
+                                                    <td>MBA-M2-256</td>
+                                                    <td>15</td>
+                                                    <td><span class="badge bg-success">In Stock</span></td>
+                                                    <td>3 hours ago</td>
+                                                    <td><button class="btn btn-sm btn-outline-primary">Edit</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

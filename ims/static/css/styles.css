@@ -1,0 +1,118 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+
+
+.mynav{
+  padding: 20px;
+  border-radius: 20px; 
+  background-color: #f8f9fa;  
+}
+
+.mynav a{
+    color: #1C1C19;
+    font-size: 1.5rem;
+    font-weight: 400;
+
+}
+
+.logs:hover{
+    background-color: #1C1C19;
+    color: #f8f9fa;
+}
+
+.logs{
+    padding: 10px 30px;
+    border: 2px solid black;
+}
+
+/* hero part */
+.card {
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-icon i {
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* testimonail */
+.hero-img {
+  height: 350px;              /* control overall size */
+  width: 100%;
+  object-fit: cover;          /* no distortion */
+  object-position: center;    /* center face/body */
+}
+
+@media (max-width: 576px) {
+  .hero-img {
+    height: 250px;            /* shorter on small screens */
+  }
+}
+
+.carousel-inner {
+  max-height: 350px;
+  overflow: hidden;
+}
+
+/* admin dashboard */
+.sidebar {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.sidebar .nav-link {
+  color: rgba(255,255,255,0.8);
+  padding: 12px 20px;
+  margin: 2px 0;
+  border-radius: 8px;
+}
+
+.sidebar .nav-link:hover, .sidebar .nav-link.active {
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.stats-card {
+  background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.stats-card-2 {
+  background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+    
+.stats-card-3 {
+  background: linear-gradient(45deg, #43e97b 0%, #38f9d7 100%);
+  color: white;
+}
+
+.stats-card-4 {
+  background: linear-gradient(45deg, #fa709a 0%, #fee140 100%);
+  color: white;
+}
+
+.main-content {
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+

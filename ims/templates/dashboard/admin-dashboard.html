@@ -1,0 +1,238 @@
+{% extends "base/layout.html" %}
+{% load static %}
+{% block body %}
+   {% load humanize %}
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar p-0">
+                <div class="p-3">
+                    <h4 class="text-white mb-4">
+                        <i class="bi bi-boxes"></i> IMS Admin
+                    </h4>
+                    <nav class="nav flex-column">
+                        <a class="nav-link active" href="#dashboard">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                        <a class="nav-link" href="{% url 'add-product' %}">
+                            <i class="bi bi-box-seam"></i> Add Product
+                        </a>
+                        <a class="nav-link" href="{% url 'orders' %}">
+                            <i class="bi bi-cart3"></i> Orders
+                        </a>
+                        <a class="nav-link" href="{% url 'product-list' %}">
+                            <i class="bi bi-truck"></i> Product List
+                        </a>
+                        <a class="nav-link" href="#reports">
+                            <i class="bi bi-graph-up"></i> Workers
+                        </a>
+                        <hr class="text-white">
+                        <a class="nav-link" href="{% url 'logout' %}">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10 main-content">
+                <!-- Header -->
+                <div class="d-flex justify-content-between align-items-center p-4 bg-white shadow-sm">
+                    <h2>Admin Dashboard</h2>
+                    <div class="d-flex align-items-center">
+                        <span class="me-3">Welcome, {{ user.email }}</span>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-person-circle"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#profile">Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="p-4">
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="card stats-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h4>{{ total_products|intcomma }}</h4>
+                                                <p class="mb-0">Total Products</p>
+                                        </div>
+                                        <i class="bi bi-box-seam fs-1"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card stats-card-2">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h4>{{ orders_today|intcomma }}</h4>
+                                                <p class="mb-0">Orders Today</p>
+                                        </div>
+                                        <i class="bi bi-cart3 fs-1"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card stats-card-3">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h4>₦{{ revenue|intcomma }}</h4>
+                                            <p class="mb-0">Revenue</p>
+                                        </div>
+                                        <i class="bi bi-currency-dollar fs-1"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card stats-card-4">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h4>Low Stock Items</h4>
+                                            <h4>{{ low_stock_count }}</h4>
+                                            <p class="mb-0">Low Stock Items</p>
+                                        </div>
+                                        <i class="bi bi-exclamation-triangle fs-1"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--  view all product -->
+                      <div class="container mt-5">
+    <h3 class="mb-4">All Products</h3>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.get_status_display }}</td>
+                        <td>{{ product.quantity }}</td>
+                        <td>₦{{ product.price|floatformat:2 }}</td>
+                        <td>
+                            <!-- Edit Icon -->
+                            <a href="{% url 'edit-product' product.pk %}" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                            <!-- Delete Icon -->
+                            <a href="{% url 'delete-product' product.pk %}" class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No products available.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+                    <!-- Charts and Tables Row -->
+                    <div class="row">
+                        <!-- Sales Chart -->
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Sales Overview</h5>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="salesChart" height="100"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Recent Orders -->
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Recent Orders</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="list-group list-group-flush">
+                                            {% for order in recent_orders %}
+                                                <div class="list-group-item d-flex justify-content-between">
+                                                    <div>
+                                                        <strong>Order #{{ order.id }}</strong><br>
+                                                        <small>{{ order.ordered_by.email }}</small> <!-- or .username -->
+                                                        <br>
+                                                        <small>Product: {{ order.product_name.name }}</small>
+                                                        <br>
+                                                        <small>Qty: {{ order.quantity }}</small>
+                                                    </div>
+                                                    <span class="badge bg-success">
+                                                        ₦{{ order.product_name.price|floatformat:2|intcomma }}
+                                                    </span>
+                                                </div>
+                                            {% empty %}
+                                                <div class="list-group-item">No recent orders.</div>
+                                            {% endfor %}
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Low Stock Alert -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Low Stock Alert</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <div>
+                                                <h4>Low Stock Items</h4>
+                                                <ul class="list-group">
+                                                    {% for product in low_stock_products %}
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            {{ product.name }}
+                                                            <span class="badge bg-warning text-dark">Qty: {{ product.quantity }}</span>
+                                                        </li>
+                                                    {% empty %}
+                                                        <li class="list-group-item">All products are sufficiently stocked.</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     
+{% endblock body %}
