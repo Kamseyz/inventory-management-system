@@ -31,6 +31,7 @@ class LoginUser(LoginView):
         # now check their role 
         
         if user.role == "admin":
+            messages.success(self.request, 'Welcome back Admin')
             return redirect('admin-dashboard')
         
         elif user.role == "worker":

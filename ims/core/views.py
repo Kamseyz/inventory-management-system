@@ -7,6 +7,8 @@ from .forms import ProductForm, OrderForm
 from django.contrib import messages
 from django.utils.timezone import now
 from django.db.models import F, Sum, ExpressionWrapper, DecimalField
+from django.template.loader import render_to_string
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -72,6 +74,11 @@ class AdminAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return self.request.user.is_authenticated and self.request.user.role == "admin"
 
 
+# add project ajax
+def addproduct(request):
+    form = ProductForm()
+    html = render_to_string('dashboard/partial-add-product.html', {'form':form}, request=request)
+    return HttpResponse(html)
 
 #edit products
 
@@ -82,7 +89,8 @@ class AdminEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     success_url = reverse_lazy('admin-dashboard')
     
     def form_valid(self, form):
-        form.instance = self.request
+        # pls noticed i passed the role to get who actually can edit it
+        form.instance.updated_by = self.request.user.role
         messages.success(self.request, 'Product has been updated successfully')
         return super().form_valid(form)
     

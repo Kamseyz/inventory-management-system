@@ -116,3 +116,10 @@
   min-height: 100vh;
 }
 
+.hidden{
+  display: none;
+}
+
+.modal-container{
+  padding: 2.3rem;
+}

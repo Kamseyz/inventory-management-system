@@ -1,0 +1,41 @@
+{% extends "base/layout.html" %}
+{% block body %}
+   <div class="p-5 bg-info h-100 w-100 d-flex text-align">
+    <div class="create-product p-5 container bg-light-subtle text-dark">
+        <a href="{% url 'admin-dashboard' %}">Go back</a>
+    <form action="{% url 'add-product' %}" method="post">
+        {% csrf_token %}
+        <!-- name -->
+         <div class="mb-3">
+                    {{ form.name.label_tag }} 
+                    {{ form.name }}
+                    {{ form.name.errors }}
+                </div>
+
+             <!-- status -->
+         <div class="mb-3">
+                    {{ form.status.label_tag }} 
+                    {{ form.status }}
+                    {{ form.status.errors }}
+                </div>
+
+
+             <!-- quantity -->
+         <div class="mb-3">
+                    {{ form.quantity.label_tag }} 
+                    {{ form.quantity }}
+                    {{ form.quantity.errors }}
+                </div>
+
+             <!-- price -->
+         <div class="mb-3">
+                    {{ form.price.label_tag }} 
+                    {{ form.price }}
+                    {{ form.price.errors }}
+                </div>
+
+        <button type="submit">Add Product</button>
+    </form>
+  </div>
+  </div>
+{% endblock body %}

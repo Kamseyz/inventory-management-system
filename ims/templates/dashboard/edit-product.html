@@ -1,0 +1,36 @@
+{% extends "base/layout.html" %}
+{% block body %}
+  <p class="text-content"></p>
+  <form action="{% url 'edit-product' object.pk %}" method="post">
+    {% csrf_token %}
+       <div class="mb-3">
+                    {{ form.name.label_tag }} 
+                    {{ form.name }}
+                    {{ form.name.errors }}
+                </div>
+
+             <!-- status -->
+         <div class="mb-3">
+                    {{ form.status.label_tag }} 
+                    {{ form.status }}
+                    {{ form.status.errors }}
+                </div>
+
+
+             <!-- quantity -->
+         <div class="mb-3">
+                    {{ form.quantity.label_tag }} 
+                    {{ form.quantity }}
+                    {{ form.quantity.errors }}
+                </div>
+
+             <!-- price -->
+         <div class="mb-3">
+                    {{ form.price.label_tag }} 
+                    {{ form.price }}
+                    {{ form.price.errors }}
+                </div>
+
+        <button type="submit">Update Product</button>
+  </form>
+{% endblock body %}
