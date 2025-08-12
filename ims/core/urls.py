@@ -6,8 +6,9 @@ from .views import (
     AdminEditView,
     AdminDeleteView,
     ShowOrdertoAdmin,
+    showadminorder,
     ListOrder,
-    ProductView,
+    # ProductView,
 )
 urlpatterns = [
      # admin dashboard
@@ -18,7 +19,9 @@ urlpatterns = [
     path('edit-product/<int:pk>/', AdminEditView.as_view(), name='edit-product'),
     path('delete-product/<int:pk>/', AdminDeleteView.as_view(), name='delete-product'),
     path('orders/', ShowOrdertoAdmin.as_view(), name='orders'),
-    path('product-list/', ProductView.as_view(), name='product-list'),
+    # ajax show order url
+    path('orders-form/', showadminorder, name='partial-orders'),
+    # path('product-list/', ProductView.as_view(), name='product-list'),
 
     #worker dashboard
 

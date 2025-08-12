@@ -105,23 +105,33 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// edit product scripts(its a modal by the way)
-const editModal = document.getElementById('editModal');
-editModal.addEventListener('show.bs.modal', function (event) {
-  const button = event.relatedTarget; // Button that triggered the modal
-  const id = button.getAttribute('data-id');
-  const name = button.getAttribute('data-name');
-  const status = button.getAttribute('data-status');
-  const quantity = button.getAttribute('data-quantity');
-  const price = button.getAttribute('data-price');
+// show order ajax scripts
 
-  // Update form action
-  const form = editModal.querySelector('form');
-  form.action = `/edit-product/${id}/`;
+document.addEventListener('DOMContentLoaded', function () {
+    const orderbutton = document.querySelector('#admin-orders');
+    const ordermainpage = document.querySelector('.main-content');
 
-  // Fill inputs
-  document.getElementById('id_name').value = name;
-  document.getElementById('id_status').value = status;
-  document.getElementById('id_quantity').value = quantity;
-  document.getElementById('id_price').value = price;
+    if (orderbutton) {
+        orderbutton.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            fetch('/orders-form/')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Script is not working');
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    if (ordermainpage) {
+                        ordermainpage.innerHTML = html;
+                    } else {
+                        console.log('Page not found');
+                    }
+                })
+                .catch(error => {
+                    console.error(`An error ${error} occurred`);
+                });
+        });
+    }
 });

@@ -17,10 +17,10 @@
                         <a class="nav-link" href="{% url 'add-product' %}" id="admin-add-product">
                             <i class="bi bi-box-seam"></i> Add Product
                         </a>
-                        <a class="nav-link" href="{% url 'orders' %}">
+                        <a class="nav-link" href="{% url 'orders' %}" id="admin-orders">
                             <i class="bi bi-cart3"></i> Orders
                         </a>
-                        <a class="nav-link" href="{% url 'product-list' %}">
+                        <a class="nav-link" href="#">
                             <i class="bi bi-truck"></i> Product List
                         </a>
                         <a class="nav-link" href="#reports">
@@ -141,9 +141,11 @@
                                 <i class="bi bi-pencil-square"></i> Edit
                             </a>
                             <!-- Delete Icon -->
-                            <a href="{% url 'delete-product' product.pk %}" class="btn btn-sm btn-outline-danger">
-                                <i class="bi bi-trash"></i> Delete
-                            </a>
+                            <a href="{% url 'delete-product' product.pk %}" 
+                                    onclick="return confirm('Are you sure you want to delete {{ product.name }}?')" 
+                                    class="btn btn-sm btn-outline-danger" id="delete-product">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </a>           
                         </td>
                     </tr>
                 {% empty %}

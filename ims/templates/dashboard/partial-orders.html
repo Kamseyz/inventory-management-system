@@ -1,0 +1,44 @@
+{% extends "base/layout.html" %}
+{% block body %}
+<div class="container mt-4">
+    <h2>All Orders</h2>
+    
+    {% if orders %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                        <th>Ordered By</th>
+                        <th>Order Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.product_name.name }}</td>
+                        <td>{{ order.quantity }}</td>
+                        <td>
+                            <span class="badge bg-success">{{ order.product_name.status }}</span>
+                        </td>
+                        <td>
+                            {{ order.ordered_by.email }}
+                            <small class="text-muted d-block">{{ order.ordered_by.role|title }}</small>
+                        </td>
+                        <td>{{ order.ordered_at|date:"M d, Y H:i" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> No orders found.
+        </div>
+    {% endif %}
+
+    <a href="{% url 'admin-dashboard' %}" class="text-decoration-none bg-blue">Go back</a>
+</div>
+{% endblock body %}

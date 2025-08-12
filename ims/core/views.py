@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
@@ -55,8 +55,12 @@ class AdminView(LoginRequiredMixin,UserPassesTestMixin, ListView):
     def test_func(self):
         return self.request.user.is_authenticated and self.request.user.role == "admin"
 
-# add products
 
+
+
+
+
+# add products
 class AdminAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     template_name = 'dashboard/add-product.html'
     form_class = ProductForm
@@ -74,14 +78,22 @@ class AdminAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return self.request.user.is_authenticated and self.request.user.role == "admin"
 
 
+
+
+
 # add project ajax
 def addproduct(request):
     form = ProductForm()
     html = render_to_string('dashboard/partial-add-product.html', {'form':form}, request=request)
     return HttpResponse(html)
 
-#edit products
 
+
+
+
+
+
+#edit products
 class AdminEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = 'dashboard/edit-product.html'
     form_class = ProductForm
@@ -101,9 +113,11 @@ class AdminEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return self.request.user.is_authenticated and self.request.user.role == "admin"
 
 
+
+
+
+
 #delete products
-
-
 class AdminDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     template_name = 'dashboard/delete-product.html'
     model = ProductModel
@@ -121,6 +135,11 @@ class AdminDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 
+
+
+
+
+
 # show orders to admin
 class ShowOrdertoAdmin(LoginRequiredMixin, UserPassesTestMixin, ListView):
     template_name = 'dashboard/show-order.html'
@@ -130,21 +149,41 @@ class ShowOrdertoAdmin(LoginRequiredMixin, UserPassesTestMixin, ListView):
     def test_func(self):
         return self.request.user.role == 'admin'
     
+    def get_queryset(self):
+        return OrdersModel.objects.select_related('product_name', 'ordered_by').order_by('ordered_by')
+ 
+ 
+ 
+ 
+ 
+ 
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['recent_orders'] = OrdersModel.objects.select_related('product_name', 'ordered_by').order_by('-ordered_at')[:5]
-        return context
+# ajax view for show orde
+
+def showadminorder(request):
+    order = OrdersModel.objects.select_related('product_name', 'ordered_by').order_by('-ordered_at')
+    html = render_to_string('dashboard/partial-orders.html', {'orders':order}, request=request)
+    return HttpResponse(html)
+
+
+
 
 
 # admin product view list
-class ProductView(LoginRequiredMixin, UserPassesTestMixin, ListView):
-    template_name = 'dashboard/product-list.html'
-    model = ProductModel
-    context_object_name = 'products'   
 
-    def test_func(self):
-        return self.request.user.role == 'admin'
+
+# will should work on it
+
+
+
+
+# class ProductView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+#     template_name = 'dashboard/product-list.html'
+#     model = ProductModel
+#     context_object_name = 'products'   
+
+#     def test_func(self):
+#         return self.request.user.role == 'admin'
     
     
 
