@@ -20,10 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=i85=4p-kt!2mq52yt^dirsa$wqj^qdw5v9fz=2@7z=)-53_%c'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 ALLOWED_HOSTS = []
 
@@ -133,3 +133,9 @@ AUTHENTICATION_BACKENDS = [
     'users.backend.EmailBackend', 
     'django.contrib.auth.backends.ModelBackend',  
 ]
+
+from dotenv import load_dotenv
+load_dotenv() 
+
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
